@@ -1,34 +1,34 @@
 # Orillusion
 
-This is the official doc website of Orillusion, built with [VitePress](https://vitepress.vuejs.org/).   
-Site content is written in Markdown format located in [docs](https://github.com/Orillusion/orillusion-web/tree/master/docs).   
-WebGPU specification is written in [Bikeshed](https://tabatkins.github.io/bikeshed) format located in [webgpu](https://github.com/Orillusion/orillusion-web/tree/master/webgpu).
+Это официальный сайт документации Orillusion, построен на [VitePress](https://vitepress.vuejs.org/).   
+Содержимое сайта в формате Markdown и расположено в [docs](https://github.com/Orillusion/orillusion-web/tree/master/docs).   
+WebGPU спецификация написана в формате [Bikeshed](https://tabatkins.github.io/bikeshed) и расположена в [webgpu](https://github.com/Orillusion/orillusion-web/tree/master/webgpu).
 
-## Writing
+## Написание
 
-See the [VitePress Markdown Guide](https://vitepress.vuejs.org/guide/markdown.html) for our rules and recommendations on writing and maintaining documentation.
+См. [VitePress Markdown Guide](https://vitepress.vuejs.org/guide/markdown.html) о наших правилах и рекомендациях при написании и поддержании документации.
 
-## Developing
+## Разработка
 
-1. Clone repository
+1. Клонируйте реппозиторий
 
 ```bash
 git clone https://github.com/Orillusion/orillusion-web.git
 ```
 
-2. Install dependencies
+2. Установите зависимости
 
 ```bash
 $ pnpm i
 ```
 
-3. Start local development environment
+3. Запустите локальное окружение разработки
 
 ```bash
 $ pnpm dev
 ```
 
-## Build Site
+## Сборка сайта
 
 ```bash
 $ pnpm build
