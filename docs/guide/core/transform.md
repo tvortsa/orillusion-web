@@ -1,6 +1,6 @@
 # Transform
 
-[Transform](/api/classes/Transform) is a built-in basic [Component](/guide/core/component), which will be added on all `Object3D` by default, used to control the `position`, `scale` and `rotation` of the container coordinate parameters.
+[Transform](/api/classes/Transform) это встроенный базовый [Component](/guide/core/component), который будет добавлен во все `Object3D` по-умолчанию, используется для управления `position`, `scale` и `rotation` параметров координат контейнера.
 
 ---
 <Demo src="/demos/core/transform.ts"></Demo>
@@ -8,43 +8,43 @@
 <<< @/public/demos/core/transform.ts
 
 ## Position
-The position of the node relative to the parent container
+Положение узла относительно родительского контейнера
 ```ts
 let obj = new Object3D();
-// The frist method (Recommended)
+// первый метод (рекомендуемый)
 obj.x = 0;
 obj.y = 0;
 obj.z = 0;
-// Or
+// или
 obj.transform.x = 0;
 obj.transform.y = 0;
 obj.transform.z = 0;
-// The second method
+// второй метод
 obj.transform.localPosition.set(0,0,0);
-// The third method
+// третий метод
 obj.transform.localPosition = new Vector3(0,0,0);
 ```
 
-## Rotation 
-The rotation of the node relative to the parent container
+## Вращение 
+Вращение узла относительно родительского контейнера
 ```ts
 let obj = new Object3D();
-// The frist method (Recommended)
+// первый метод (рекомендуемый)
 obj.rotationX = 0;
 obj.rotationY = 0;
 obj.rotationZ = 0;
-// Or
+// или
 obj.transform.rotationX = 0;
 obj.transform.rotationY = 0;
 obj.transform.rotationZ = 0;
-// The second method
+// второй метод
 obj.transform.localRotation.set(0,0,0);
-// The third method
+// третий метод
 obj.transform.localRotation = new Vector3(0,0,0);
 ```
 
-## Scale
-The scale of the node relative to the parent container
+## Масштаб
+Масштаб узла относительно родительского контейнера
 ```ts
 let obj = new Object3D();
 // The frist method
@@ -61,4 +61,4 @@ obj.transform.localScale.set(1,1,1);
 obj.transform.localScale = new Vector3(0,0,0);
 ```
 
-See more usages in [Transform](/api/classes/Transform) API
+Увидеть больше использования в [Transform](/api/classes/Transform) API

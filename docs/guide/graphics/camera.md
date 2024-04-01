@@ -1,31 +1,31 @@
 # Camera
 
-Camera is a tool for users to display or capture the virtual world, just like the eyes that observe things in the real world. All the cool images need to be rendered through the camera. At least one camera must be present in each scene to view the objects in the scene. `Orillusion` has already encapsulated the [camera types](#camera-type) and [controllers](#camera-component) commonly used, and users can also extend the function of the camera by [custom components](/guide/core/component).
+Камера — это инструмент, позволяющий пользователям отображать или снимать виртуальный мир, точно так же, как глаза, которые наблюдают за происходящим в реальном мире. Все крутые изображения нужно визуализировать через камеру. В каждой сцене должна присутствовать хотя бы одна камера для просмотра объектов в сцене. `Orillusion` уже инкапсулировал наиболее часто используемые [типы камер](#camera-type) и [контроллеры](#camera-component) и пользователи также могут расширить функции камеры с помощью [кастомных компонентов](/guide/core/component).
 
-## Basic Usage
+## Основное использование
 ```ts
 import { Object3D, Scene3D, Camera3D } from '@orillusion/core'
-// Initialize a scene
+// Инициализировать сцену
 let scene = new Scene3D();
-// Initialize a camera node
+// Инициализировать узел камеры
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в узел
 let camera = cameraObj.addComponent(Camera3D);
-// Add the camera node to scene
+// Добавить узел камеры в сцену
 scene.addChild(cameraObj);
 
 // Create 3D view
 let view = new View3D();
-// Fill the scene to the 3D view
+// Заполнить сцену до 3D view
 view.scene = scene;
-// Fill the camera to the 3D view
+// Заполнить камеру до 3D view
 view.camera = camera;
 // Start rendering
 Engine3D.startRenderView(view);
 ```
-If there are multiple cameras in the scene, you can manually switch the target camera through `view.camera`:
+Если в сцене несколько камер, вы можете вручную переключить целевую камеру с помощью `view.camera`:
 ```ts
-// If multiple cameras exist in the scene
+// Если в сцене присутствует несколько камер
 let cameraObj1 = new Object3D();
 let camera1 = cameraObj.addComponent(Camera3D);
 let cameraObj2 = new Object3D();
@@ -33,202 +33,202 @@ let camera2 = cameraObj.addComponent(Camera3D);
 
 // Create 3D view
 let view = new View3D();
-// Set the rendering scene
+// установка сцены для рендеринга
 view.scene = scene;
 // camera1 Set camera1
 view.camera = camera1;
 ...
-// Switch to use camera2 for rendering
+// Переключитесь на использование камеры2 для рендеринга
 view.camera = camera2;
 
 ```
 
 ## Camera Position
-There are three ways to change the camera position:
-1. By `TransForm` transformation: The position and direction angle of the camera can be manually set through the [transForm](/guide/core/transform) property of the camera node `Object3D`:
+Есть три способа изменить положение камеры:
+1. С помощью преобразования `TransForm`: Положение и угол направления камеры можно задать вручную с помощью свойства [transForm](/guide/core/transform) свойство узла камеры `Object3D`:
 ```ts
 // Create a node
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в узел
 let camera = cameraObj.addComponent(Camera3D);
-// Set the Position or Rotation of the Object3D
+// задаем Position или Rotation объекта Object3D
 cameraObj.x = 10;
 cameraObj.rotateX = 90;
 ...
 ```
 
-2. By `lookAt` function of the component: The [lookAt](/api/classes/Camera3D#lookat) function of the camera component can set the position of the camera `Object3D` and the position of the target to be observed at the same time:
+2. С помощью функции `lookAt` компонента: Функция [lookAt](/api/classes/Camera3D#lookat) компонента camera могут задавать position camera `Object3D` и position цели, которая будет наблюдаться в то же время:
 
 ```ts
-// Create a node
+// Создаем node
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в узел
 let camera = cameraObj.addComponent(Camera3D);
-// Use the lookAt function of the Camera3D component to change the position and direction angle of the Object3D
+// Используйте функцию LookAt компонента Camera3D, чтобы изменить положение и угол направления Object3D.
 camera.lookAt(new Vector3(0,0,10), new Vector3(0,0,0), new Vector3(0,0,1));
 ```
-| Parameter | Type    | Description                                                  | Example          |
+| Параметр | Тип    | Описание                                                  | Пример          |
 |-----------|---------|--------------------------------------------------------------|------------------|
-| pos       | Vector3 | The position of the object itself (global)                   | Vector3(0, 0, 0) |
-| target    | Vector3 | The position of the target (global)                          | Vector3(0, 1, 0) |
-| up        | Vector3 | The coordinate axis of the direction the camera is facing up | Vector3(0, 1, 0) |
-3. Camera Controller: Several common [controller components](#camera-component) are built in the engine, which can automatically adjust the position properties of the camera according to the user's input interaction.
+| pos       | Vector3 | Положение самого объекта (глобальное)                   | Vector3(0, 0, 0) |
+| target    | Vector3 | Положение цели (глобальное)                          | Vector3(0, 1, 0) |
+| up        | Vector3 | Ось координат направления камеры вверх. | Vector3(0, 1, 0) |
+3. Camera Controller: В движок встроено несколько общих [компонентов контроллера](#camera-component) которые могут автоматически регулировать свойства положения камеры в соответствии с вводом пользователя.
 
 
-## Camera Type
-The engine mainly supports orthographic cameras and perspective cameras for developers to use currently.
+## Тип камеры
+Движок в основном поддерживает ортогональные камеры и перспективные камеры, которые разработчики могут использовать в настоящее время.
 
-### Orthographic Projection
+### Ортографическая проекция
 
-In orthographic camera mode, the size of the object does not change regardless of how far the object is from the camera. We usually use orthographic cameras in 2D drawing, and set the `z` coordinate to `0.0` in our geometric graphics. But the `z` axis can be extended to any length we want. Using an orthographic camera to project the display object, the result is scaled proportionally without distortion.
+В орфографическом режиме камеры размер объекта не меняется независимо от того, насколько далеко он находится от камеры. Обычно мы используем ортогональные камеры в 2D-чертежах и устанавливаем координату `z` coordinate на `0.0` в нашей геометрической графике. Но ось `z` может быть расширена до любой желаемой длины. Используя ортогональную камеру для проецирования объекта отображения, результат масштабируется пропорционально без искажений.
 
 ![camera_orthoOffCenter](/images/camera_orthoOffCenter.webp)
 
-Use [camera.orthoOffCenter](/api/classes/Camera3D.html#orthooffcenter) API to set the camera to an orthographic camera:
+Используйте  [camera.orthoOffCenter](/api/classes/Camera3D.html#orthooffcenter) API чтобы установить camera в orthographic camera:
 
-| Parameter | Type   | Description                                                   | Example                 |
+| Параметр | Тип   | Описание                                                   | Пример                 |
 |-----------|--------|---------------------------------------------------------------|-------------------------|
-| left      | number | The minimum value of the x-axis of the viewing frustum        | -window.innerWidth / 2  |
-| right     | number | The maximum value of the x-axis of the viewing frustum        | window.innerWidth / 2   |
-| bottom    | number | The minimum value of the y-axis of the viewing frustum        | -window.innerHeight / 2 |
-| top       | number | The maximum value of the y-axis of the viewing frustum        | window.innerHeight / 2  |
-| near      | number | The z value of the near clipping plane of the viewing frustum | 1                       |
-| far       | number | The z value of the far clipping plane of the viewing frustum  | 5000                    |
+| left      | number | Минимальное значение оси x пирамиды вида        | -window.innerWidth / 2  |
+| right     | number | Максимальное значение оси x пирамиды вида        | window.innerWidth / 2   |
+| bottom    | number | The minimum значение оси y пирамиды вида        | -window.innerHeight / 2 |
+| top       | number | The maximum значение оси y пирамиды вида        | window.innerHeight / 2  |
+| near      | number | z значение ближней плоскости отсечения усеченной пирамиды обзора | 1                       |
+| far       | number | z значение дальней плоскости отсечения усеченной пирамиды обзора  | 5000                    |
 
-### Perspective Projection
-Perspective projection will use perspective division to shorten and shrink objects that are far away from the observer. Objects with the same logical size appear larger in the front position than in the back position in the visible area, which can achieve the observation effect close to the human eye. It is the most commonly used projection mode in 3D scenes.
+### Перспективная проекция
+Перспективная проекция будет использовать разделение перспективы для укорочения и уменьшения объектов, находящихся далеко от наблюдателя. Объекты с одинаковым логическим размером кажутся больше в передней позиции, чем в задней в видимой области, что позволяет достичь эффекта наблюдения, близкого к человеческому глазу. Это наиболее часто используемый режим проецирования в 3D-сценах.
 
 ![camera_perspective](/images/camera_perspective.webp)
 
-Use [camera.perspective](/api/classes/Camera3D#perspective) API to set the camera to a perspective camera:
+Используйте  [camera.perspective](/api/classes/Camera3D#perspective) API чтобы установить перспективную камеру:
 
-| Parameter | Type   | Description                                                   | Example                                |
+| Параметр | Тип   | Описание                                                   | Пример                                |
 |-----------|--------|---------------------------------------------------------------|----------------------------------------|
-| fov       | number | The perspective degree                                        | 60                                     |
-| aspect    | number | The aspect ratio of the viewport                              | window.innerWidth / window.innerHeight |
-| near      | number | The z value of the near clipping plane of the viewing frustum | 0.1                                    |
-| far       | number | The z value of the far clipping plane of the viewing frustum  | 1000                                   |
+| fov       | number | Степень перспективы                                        | 60                                     |
+| aspect    | number | Соотношение сторон окна просмотра                              | window.innerWidth / window.innerHeight |
+| near      | number | Значение z ближней плоскости отсечения усеченной пирамиды обзора | 0.1                                    |
+| far       | number | Значение z дальней плоскости отсечения усеченной пирамиды обзора  | 1000                                   |
 
 <Demo :height="500" src="/demos/graphics/camera_type.ts"></Demo>
 
 <<< @/public/demos/graphics/camera_type.ts{35-41}
 
-## Camera Conponent
-The Camera component provides flexible extension support for the camera, which can be used directly with predefined components, or can be customized to implement more personalized requirements. The component executes its own update logic in sync with the `Engine3D` main loop through its `update` function.
+## Компонент Camera
+Компонент «Камера» обеспечивает гибкую поддержку расширений для камеры, которую можно использовать непосредственно с предопределенными компонентами или настроить для реализации более персонализированных требований. Компонент выполняет свою собственную логику `update` синхронно с основным циклом `Engine3D` через свою функцию обновления.
 
 ### [FlyCamera](/api/classes/FlyCameraController)
-This controller implements the camera's free movement. Its interaction features are:
-  - Move forward, backward and left and right by pressing W A S D
-  - Control the movement direction of the camera by holding down the left mouse button
+Этот контроллер реализует свободное перемещение камеры. Особенности его взаимодействия:
+  - Двигайтесь вперед, назад, влево и вправо, нажимая W A S D
+  - Управляйте направлением движения камеры, удерживая левую кнопку мыши.
 
 <Demo :height="500" src="/demos/graphics/camera_fly.ts"></Demo>
 
 <<< @/public/demos/graphics/camera_fly.ts
 
-Basic usage:
+Основное использование:
 ```ts
 import { Scene3D, Camera3D, FlyCameraController } from '@orillusion/core'
-// Create a node
+// Создать узел
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в node
 let camera = cameraObj.addComponent(Camera3D);
-// Add a controller component to the node
+// Добавить компонент контроллера в узел
 let flyController = cameraObj.addComponent(FlyCameraController);
-// Set the camera position through the component setCamera
+// Установите положение камеры через компонент setCamera
 flyController.setCamera(new Vector3(0, 0, 15), new Vector3(0, 0, 0));
-// Set the mouse movement speed
+// Установите скорость движения мыши
 flyController.moveSpeed = 10;
 ```
-The fly camera can be set by [setCamera](/api/classes/FlyCameraController#setcamera) to set its own position and orientation
+Летающую камеру можно настроить с помощью [setCamera](/api/classes/FlyCameraController#setcamera) чтобы установить собственное положение и ориентацию
 
-| Parameter | Type    | Description                | Example             |
+| Параметр | Тип    | Описание                | Пример             |
 |-----------|---------|----------------------------|---------------------|
-| targetPos | Vector3 | The position of the camera | new Vector3(0,0,10) |
-| lookAtPos | Vector3 | The position of the target | new Vector3(0,0,0)  |
+| targetPos | Vector3 | Положение камеры | new Vector3(0,0,10) |
+| lookAtPos | Vector3 | Положение цели | new Vector3(0,0,0)  |
 
-Also, you can modify `moveSpeed` to adjust the speed of movement
+Кроме того, вы можете изменить `moveSpeed` чтобы настроить скорость движения
 
-| Parameter | Type   | Description           | Example |
+| Параметр | Тип   | Описание           | Пример |
 |-----------|--------|-----------------------|---------|
-| moveSpeed | number | The speed of movement | 10      |
+| moveSpeed | number | Скорость движения | 10      |
 
 ### [HoverCamera](/api/classes/HoverCameraController)
 
-This camera controller implements the camera's movement in the `xz` plane and rotation around the current observation point. Its interaction features are:
-  - Press the left mouse button and move the mouse to rotate the camera around the current observation target.
-  - Press the right mouse button and move the mouse to move the camera smoothly in the direction and distance of the mouse movement in the current scene visible area.
-  - Scroll the mouse wheel to control the camera's viewing distance
+Этот контроллер камеры реализует перемещение камеры в плоскости `xz` и вращение вокруг текущей точки наблюдения. особенности его взаимодействия::
+  - Нажмите левую кнопку мыши и перемещайте мышь, чтобы повернуть камеру вокруг текущей цели наблюдения.
+  - Нажмите правую кнопку мыши и перемещайте мышь, чтобы плавно перемещать камеру в направлении и на расстоянии движения мыши в видимой области текущей сцены.
+  - Прокрутите колесо мыши, чтобы контролировать расстояние обзора камеры.
 
 <Demo :height="500" src="/demos/graphics/camera_hover.ts"></Demo>
 
 <<< @/public/demos/graphics/camera_hover.ts
 
-Basic usage:
+Основное использование:
 ```ts
 import { Scene3D, Camera3D, HoverCameraController } from '@orillusion/core'
 // Create a node
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в узел
 let camera = cameraObj.addComponent(Camera3D);
-// Add a controller component to the node
+// Добавить компонент контроллера в узел
 let hoverCameraController = cameraObj.addComponent(HoverCameraController);
-// Set the camera position through the component setCamera
+// Установите положение камеры через компонент SetCamera
 hoverController.setCamera(15, -15, 15, new Vector3(0, 0, 0));
 ```
-The hover camera can be controlled by [setCamera](/api/classes/HoverCameraController#setcamera) to set its own position and orientation
+Камерой наведения (hover) можно управлять с помощью [setCamera](/api/classes/HoverCameraController#setcamera) чтобы установить ее собственное положение и ориентацию.
 
-| Parameter | Type    | Description              | Example            |
+| Параметр | Тип    | Описание              | Пример            |
 |-----------|---------|--------------------------|--------------------|
-| roll      | number  | Rotate around the y axis | 0                  |
-| pitch     | number  | Rotate around the x axis | 0                  |
-| distance  | number  | Distance from the target | 10                 |
-| target    | Vector3 | Target coordinate        | new Vector3(0,0,0) |
+| roll      | number  | Вращение вокруг оси Y | 0                  |
+| pitch     | number  | Вращение вокруг оси x | 0                  |
+| distance  | number  | Расстояние до цели | 10                 |
+| target    | Vector3 | координаты цели        | new Vector3(0,0,0) |
 
 
 ### [Orbit](/api/classes/OrbitController)
-This camera controller is similar to the hover camera, but it can directly set the position and orientation of the camera `Object3D` to control the position and orientation of the view. The main features are as follows:
-  - Press the left mouse button and move the mouse to rotate the camera around the current observation target.
-  - Press the right mouse button and move the mouse to move the camera smoothly in the direction and distance of the mouse movement in the current scene visible area.
-  - Scroll the mouse wheel to control the camera's viewing distance
-  - You can set the camera to automatically rotate
-  - You can set the rotation, zoom, and translation speed
-  - You can set the maximum and minimum angles of elevation
+Этот контроллер камеры аналогичен камере при наведении, но он может напрямую задавать положение и ориентацию камеры `Object3D` для управления положением и ориентацией вида. Основные особенности заключаются в следующем:
+  - Нажмите левую кнопку мыши и перемещайте мышь, чтобы повернуть камеру вокруг текущей цели наблюдения.
+  - Нажмите правую кнопку мыши и перемещайте мышь, чтобы плавно перемещать камеру в направлении и на расстоянии движения мыши в видимой области текущей сцены..
+  - Прокрутите колесо мыши, чтобы контролировать расстояние обзора камеры.
+  - Вы можете настроить камеру на автоматический поворот
+  - Вы можете установить скорость вращения, масштабирования и перевода.
+  - Вы можете установить максимальный и минимальный углы подъема.
 
 <Demo :height="500" src="/demos/graphics/camera_orbit.ts"></Demo>
 
 <<< @/public/demos/graphics/camera_orbit.ts{12-17}
 
 
-Basic usage:
+Основное использование:
 ```ts
 import { Scene3D, Camera3D, OrbitController } from '@orillusion/core'
-// Create a node
+// Создать узел
 let cameraObj = new Object3D();
-// Add a camera component to the node
+// Добавить компонент камеры в узел
 let camera = cameraObj.addComponent(Camera3D);
-// Add a controller component to the node
+// Добавить компонент контроллера в узел
 let orbit = cameraObj.addComponent(OrbitController);
-// Set the position of the camera Object3D
+// Установите положение камеры Object3D
 cameraObj.localPosition.set(0, 10, 30);
-// Enable automatic rotation
+// Включить автоматическое вращение
 orbit.autoRotate = true
-// Automatic rotation speed
+// Автоматическая скорость вращения
 orbit.autoRotateSpeed = 0.1
-// Zoom speed coefficient
+// Коэффициент скорости увеличения
 orbit.zoomFactor = 0.1
-// View angle translation speed coefficient
+// Коэффициент скорости перевода вида
 orbit.panFactor = 0.25
-// View angle smoothing coefficient
+// Коэффициент сглаживания угла вида
 orbit.smooth = 5
-// Zoom minimum distance
+// минимальное расстояние масштабирования
 orbit.minDistance = 1
-// Zoom maximum distance
+// Максимальное расстояние масштабирования
 orbit.maxDistance = 1000
-// Minimum elevation angle
+// Минимальный угол высоты
 orbit.minPolarAngle = -90
-// Maximum elevation angle
+// Максимальный угол высоты
 orbit.minPolarAngle = 90
 ```
 
-### Custom Controller
-Users can extend additional camera components through [custom components](/guide/core/script), See [OrbitController](https://github.com/Orillusion/orillusion/blob/main/src/components/controller/OrbitController.ts) as an example.
+### Пользовательский контроллер
+Пользователи могут расширить дополнительные компоненты камеры через [custom components](/guide/core/script), См. [OrbitController](https://github.com/Orillusion/orillusion/blob/main/src/components/controller/OrbitController.ts) как пример.
