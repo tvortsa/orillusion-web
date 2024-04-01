@@ -1,23 +1,23 @@
 # EngineSetting
-You can set some common configurations of the engine through [EngineSetting](/api/types/EngineSetting), `EngineSetting` is mainly composed of several configurations, including pick mode, render pipeline, shadow settings, post-processing settings, skybox settings, etc.
+Вы можете установить некоторые общие конфигурации движка через [EngineSetting](/api/types/EngineSetting), `EngineSetting` в основном состоит из нескольких конфигураций, включая pick mode, render pipeline, shadow settings, post-processing settings, skybox settings, etc.
 
-## Basic Usage
-Before initializing the engine, you need to set the engine configuration first, which can be set through the `setting` property of `Engine3D`.
+## Основное использование
+Перед инициализацией движка необходимо сначала установить конфигурацию движка, которая может быть установлена через свойство `setting` объекта `Engine3D`.
 
-For example, set the maximum number of lights supported in the scene:
+Например, установите максимальное количество источников света, поддерживаемых на сцене:
 ```ts
-// Maximum number of lights
+// Максимальное количество Источников света
 Engine3D.setting.light.maxLight = 1024;
-// Enbale use log depth
+// Включить использование log depth
 Engine3D.setting.render.useLogDepth = true;
-// Configure first, then initialize
+// Сначала настроить, затем инициализируйте
 await Engine3D.init();
 ```
 
 ## Pick Mode
-Engine supports two pick modes, one is `pixel` and the other is `bound`.
+Engine поддерживает два режима pick, первый `pixel` и второй `bound`.
 
-The default configuration is `bound` mode, which picks up the model by calculating the AABB bounding box of the model. The accuracy is not as good as `pixel` mode, but the calculation is faster and the performance is better. The bounding box picking mode can be set through the `pick` property of the engine configuration.
+По умолчанию стоит режим `bound`, который выбирает модель, вычисляя AABB габаритный бох модели. Точность не так хороша, как в режиме `pixel`, но расчет быстрее, а производительность лучше. Режим bounding box picking можно установить свойством `pick` конфигуратора движка.
 
 ```ts
 Engine3D.setting.pick.enable = true;
@@ -25,7 +25,7 @@ Engine3D.setting.pick.mode = `bound`;
 await Engine3D.init();
 ```
 
-Also, the pixel picking mode can also be set through the `pick` property.
+Кроме того, режим pixel picking также может быть установлен через свойство `pick`.
 
 ```ts
 Engine3D.setting.pick.enable = true;
@@ -33,35 +33,35 @@ Engine3D.setting.pick.mode = `pixel`;
 await Engine3D.init();
 ```
 
-See more about [Pick Event](/guide/interaction/pickfire)
+Узнайте больше о [Pick Event](/guide/interaction/pickfire)
 
-## Post Processing Settings
-Engine supports multiple post-processing effects, including various anti-aliasing, bloom, ambient occlusion, etc., which can be set through the `postProcessing` property of the `render` configuration.
+## Настройки пост-процессинга
+Engine поддерживает несколько эффектов пост-обработки, в том числе различные anti-aliasing, bloom, ambient occlusion, etc., который может быть установлен через свойство `postProcessing` конфигуратора `render`.
 
-For example, set the `bloom` post-processing effect:
+Например, установите `bloom` post-processing эффект:
 ```ts
-// Enable bloom 
+// включаем bloom 
 Engine3D.setting.render.postProcessing.bloom.enable = true;
-// Set the intensity of bloom
+// задаем интенсивность bloom
 Engine3D.setting.render.postProcessing.bloom.intensity = 0.5;
 ```
-See more about [Post Processing](/guide/advanced/posteffect)
+Узнайте больше о [Post Processing](/guide/advanced/posteffect)
 
-## Shadow Settings
-Setting the shadow method and attributes through the `shadow` property of the engine configuration.
+## Тени
+Установка метода тени и атрибутов через свойство `shadow` конфигуратора движка.
 
 ```ts
-Engine3D.setting.shadow.enable = true; // Enable shadow
-Engine3D.setting.shadow.type = `SOFT`; // The type of shadow, SOFT
-Engine3D.setting.shadow.shadowSize = 2048; // The size of the shadow map
-Engine3D.setting.shadow.shadowBound = 20; // The bound of shadow
+Engine3D.setting.shadow.enable = true; // включить тени
+Engine3D.setting.shadow.type = `SOFT`; // тип теней, SOFT
+Engine3D.setting.shadow.shadowSize = 2048; // размер карты теней
+Engine3D.setting.shadow.shadowBound = 20; // граница тени
 ```
-See more about [Shadow](/guide/graphics/shadow)
+Узнайте больше о [Shadow](/guide/graphics/shadow)
 
 <!-- ## Global Illumination Settings
-Setting the global illumination through the `gi` property of the configuration.
+Настройка глобального освещения через свойство `gi` конфигурации.
 ```ts
 Engine3D.setting.gi.enable = true;
 ```
-See more about [Global Illumination](/guide/advanced/gi) -->
+Узнайте больше о [Global Illumination](/guide/advanced/gi) -->
 

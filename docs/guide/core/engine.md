@@ -1,15 +1,15 @@
 # Engine3D
-`Engine3D` is the only global instance of the engine core, with the following main methods:
-1. Call `Engine3D.init()` to initialize the engine
-2. Call `Engine3D.startRenderView()` to start the view rendering loop
-3. `Engine3D.res` loads network textures or model resources, see more in [Resource Loading](/guide/resource/Readme)
-4. `Engine3D.inputSystem` manages user input events, see more in [Interaction](/guide/interaction/Readme)
-5. `Engine3D.setting` configures rendering-related features, see more in [Config](/guide/core/config)
+`Engine3D` это единственный глобальный экземпляр ядра движка, со следующими основными методами:
+1. Вызов `Engine3D.init()` для инициализации движка
+2. Вызов `Engine3D.startRenderView()` для запуска цикла рендеринга view
+3. `Engine3D.res` загружает сетевые текстуры или модельные ресурсы, смотри [Загрузка ресурсов](/guide/resource/Readme)
+4. `Engine3D.inputSystem` управляет событиями пользовательского ввода, см. [Взаимодействие](/guide/interaction/Readme)
+5. `Engine3D.setting` конфигурирует функции связанные с рендерингом, см. больше в [Config](/guide/core/config)
 
-## Initialization
-Use `Engine3D.init()` method to initialize the engine. The default parameters can be empty.
+## Инициализация
+Используйте метод `Engine3D.init()` для инициализации движка. Параметры по умолчанию могут быть пустыми.
 
-The initialization of the engine requires a request for the `GPU` device, and the initialization request for the `GPU` device is an asynchronous process, so it needs to be called asynchronously. We recommend using the `async/await` field to call it.
+Инициализация двигателя требует запроса на устройство `GPU`, и запрос инициализации для `GPU` устройства это асинхронный процесс, так что это нужно вызывать асинхронно. Мы рекомендуем использовать `async/await` для этого вызова.
 
 ```ts
 Engine3D.init().then(()=>{
@@ -24,61 +24,61 @@ run()
 ```
 
 ## Render Loop Callback
-To get the rendering main loop callback, you can pass in parameters when initializing, and execute custom logic in the callback.
+Чтобы получить обратный вызов основного цикла рендеринга, вы можете передавать параметры при инициализации и выполнить пользовательскую логику в обратном вызове.
 
 ```ts
 await Engine3D.init({
     beforeRender: ()=>{
-        // Callback before each frame rendering
+        // Обратный вызов перед каждым рендерингом кадра
     },
     renderLoop: ()=>{
-        // Callback for each frame
+        // Обратный вызов для каждого кадра
     },
     lateRender: ()=>{
-        // Callback after each frame rendering
+        // Обратный вызов после каждого рендеринга кадра
     }
 });
 ```
 
 ## Config Canvas
-In addition to configuring the rendering callback, you can also specify the `canvas` to be rendered when initializing. If not specified, an opaque `canvas` that covers the entire window will be created by default.
+В дополнение к настройке обратного вызова рендеринга, вы также можете указать «Canvas», который будет отображаться при инициализации.Если не указано, непрозрачный `canvas`, который покрывает все окно, будет создан по умолчанию.
 
 ```ts
 await Engine3D.init({
     canvasConfig:{
-        canvas: document.getElementById("xxx"), // Specify the canvas element, you can customize the canvas size or layout
-        alpha: true, // Whether the background is transparent, default false
+        canvas: document.getElementById("xxx"), // Укажите элемент Canvas, вы можете настроить размер или макет canvas
+        alpha: true, // Прозрачный фон, по умолчанию false
         zIndex: 1, // CSS z-index, default 0
-        backgroundImage: "path/to/bg", // Background image when alpha is transparent
+        backgroundImage: "path/to/bg", // Фоновое изображение, когда альфа прозрачна
         devicePixelRatio: 1 // Rendering DPR, default window.devicePixelRatio
     }
 });
 ```
-> Lower `devicePixelRatio` can effectively reduce rendering pressure, improve rendering performance, but at the same time rendering resolution will also decrease, may increase the aliasing effect
+> Ybprbq `devicePixelRatio` может эффективно снизить давление рендеринга, улучшить производительность рендеринга, но в то же время разрешение на рендеринг также уменьшится, может увеличить эффект антиалиасинга
 
-For more detailed configuration, please refer to [CanvasConfig](/api/types/CanvasConfig)
+Для получения более подробной конфигурации, пожалуйста, см. [CanvasConfig](/api/types/CanvasConfig)
 
-## Start Rendering
-After the engine is initialized, you need to create a [View3D](/api/classes/View3D) to start rendering. `View3D` needs at least one scene [Scene3D](/guide/core/scene) and one camera [Camera3D](/api/classes/Camera3D) to start the rendering task, the basic usage is as follows:
+## Старт рендеринга
+После инициализированного движка вам необходимо создать [View3D](/api/classes/View3D) чтобы начать рендеринг. Для `View3D` нужна хотя бы одна сцена [Scene3D](/guide/core/scene) и одна камера [Camera3D](/api/classes/Camera3D) для старта задчи рендеринга, базовое использование выглядит так:
 
 ```ts
 await Engine3D.init();
-// Create a scene
+// Создание сцены
 this.scene = new Scene3D();
 
-// Start rendering
+// Старт рендеринга
 let view = new View3D();
 view.scene = this.scene;
 view.camera = this.camera;
 Engine3D.startRenderView(view);
 
-// Pause rendering loop
+// Пауза цикла рендеринга
 Engine3D.pause();
-// Resume rendering loop
+// Возобновление цикла рендеринга
 Engine3D.resume();
 ```
 ---
-See more in [Engine3D](/api/classes/Engine3D) API
+См. больше в [Engine3D](/api/classes/Engine3D) API
 
 
 

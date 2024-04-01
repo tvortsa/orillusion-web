@@ -1,14 +1,14 @@
-# Draw a Cube
+# Отрисовка куба
 
-In this section, we will take a quick look at the using steps of the engine through an example of drawing a cube:
+В этом разделе мы быстро рассмотрим использование этапов движка через пример рисования куба:
 
 <Demo src="/demos/getting_start/cube.ts"></Demo>
 
 <<< @/public/demos/getting_start/cube.ts
 
-## Import Modules
+## Импорт модулей
 
-First, we need to import the corresponding modules:
+Во -первых, нам нужно импортировать соответствующие модули:
 
 ```ts
 import {
@@ -27,98 +27,98 @@ import {
 } from '@orillusion/core';
 ```
 
-| Modules               | Description                                                                                                                                             |
+| Модули               | Описание                                                                                                                                             |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Color                 | Provide the definition of color                                                                                                                         |
-| Engine3D              | Engine3D class is the main body of the engine, including engine initialization, start rendering and other core methods                                  |
-| Scene3D               | By creating a new Scene3D class, you can create a instance scene, which is usually used as the root node in the program                                 |
-| Object3D              | The Object3D class defines an object for object(things) that contains common object(things) properties such as position, rotation, and other parameters |
-| Camera3D              | By creating a new Camera3D class you can create an instance of the camera 3D component, which can be added to the scene as a camera node                |
-| View3D                | View3D, specify the target scene and observation camera for engine rendering                                                                            |                                                                                                                                               |
-| LitMaterial           | The LitMaterial class allows you to create material instances and set material parameters to achieve different material effects.                        |
-| BoxGeometry           | The BoxGeometry class allows you to create a rectangular(box) geometry                                                                                  |
-| MeshRenderer          | The MeshRenderer component provides mesh object geometry rendering for objects                                                                          |
-| DirectLight           | DirectLight component allows you to set the color, intensity properties and light angle of light to get the Suitable light effect                       |
-| HoverCameraController | HoverCamera component allows to control camera movement around the observation point                                                                    |
-| AtmosphericComponent  | The built-in skybox component                                                                                                                           |
+| Color                 | Дает определение цвета                                                                                                                         |
+| Engine3D              | Класс Engine3D это основа движка, включая инициализацию движка, запуск рендеринга и другие основные методы                                  |
+| Scene3D               | Создав новый класс Scene3D, вы можете создать экземпляр сцены, который обычно используется в качестве root node в программе                                 |
+| Object3D              | Класс Object3D определяет объект для объекта (предмета), который содержит общие свойства объекта (предмета), такие как положение, вращение и другие параметры |
+| Camera3D              | Создав новый класс Camera3D вы можете создать экземпляр камеры 3D компонент, который может быть добавлен в сцену как camera node                |
+| View3D                | View3D, укажите целевую сцену и камеру наблюдения для engine rendering                                                                            |                                                                                                                                               |
+| LitMaterial           | Класс LitMaterial позволяет создавать экземпляры материала и устанавливать параметры материала для достижения различных эффектов материала.                        |
+| BoxGeometry           | Класс BoxGeometry позволяет создать прямоугольную(box) геометрию                                                                                  |
+| MeshRenderer          | Класс MeshRenderer component предоставляет рендеринг геометрии объекта сетки для объектов                                                                          |
+| DirectLight           | DirectLight component позволяет установить цвет, свойства интенсивности и угол света, чтобы получить подходящий световой эффект                   |
+| HoverCameraController | HoverCamera component позволяет управлять движением камеры вокруг точки наблюдения                                                                    |
+| AtmosphericComponent  | Встроенный компонент skybox                                                                                                                            |
 
-## Initialize the Engine
+## Инициализация движка
 
 ```ts
 await Engine3D.init();
 ```
 
-## Create New Scene Root-node
+## Создание новой сцены (Scene Root-node)
 
 ```ts
 let scene3D = new Scene3D();
 ```
 
-## Add Skybox
+## Добавляем скайбох
 ```ts
-// Add atmospheric scattering skybox component
+// Добавить компонент атмосферного рассеяния Skybox
 let sky = scene3D.addComponent(AtmosphericComponent);
 ```
-## Add Camera Controller Component
+## Добавляем компонент Camera Controller
 
 ```ts
-// Create a camera object
+// Создать объект камеры
 let cameraObj = new Object3D();
 let camera = cameraObj.addComponent(Camera3D);
-// Set the camera perspective according to the window size
+// Установите перспективу камеры в соответствии с размером окна
 camera.perspective(60, window.innerWidth / window.innerHeight, 1, 5000.0);
-// Set camera controller
+// Установите контроллер камеры
 let controller = camera.object3D.addComponent(HoverCameraController);
 controller.setCamera(0, 0, 15);
-// Add camera node to sence
+// Добавить узел камеры в сцену
 scene3D.addChild(cameraObj);
 ```
 
-## Add Light to Scene
+## Добавляем источник света в Scene
 
 ```ts
-// Create a light object
+// Создаем объект light
 let light = new Object3D();
-// Add direct light component
+// Добавляем компонент direct light
 let component = light.addComponent(DirectLight);
-// Adjust light parameters
+// Настраиваем параметры источника света
 light.rotationX = 45;
 light.rotationY = 30;
 component.intensity = 2;
-// Add light node to sence
+// добавляем узел light к сцене
 scene3D.addChild(light);
 ```
 
-## Create a New Object and Add MeshRenderer
+## Создаем New Object и Add MeshRenderer
 
-After adding the MeshRenderer to the object, we need to attach the geometry and materials to the object's MeshRenderer.
+После добавления Meshrenderer к объекту нам нужно прикрепить геометрию и материалы к Meshrenderer объекта.
 
 ```ts
-// Create a new object
+// Создать новый объект
 const obj = new Object3D();
-// Add MeshRenderer to object(obj)
+// Добавляем MeshRenderer к object(obj)
 let mr = obj.addComponent(MeshRenderer);
-// Set geometry
+// настраиваем геометрию
 mr.geometry = new BoxGeometry(5, 5, 5);
-// Set material
+// задаем материал
 mr.material = new LitMaterial();
 ```
 
-## Add Object to Scene
+## Добавляем объект к сцене
 
 ```ts
 scene3D.addChild(obj);
 ```
 
-## Render Scene
+## Рендер сцены
 
 ```ts
-// Create View3D object
+// Создаем объект View3D
 let view = new View3D();
-// Specify the scene to render
+// Укажите сцену, для рендера
 view.scene = scene3D;
-// Specify the camera to use
+// Задаем используемую камеру
 view.camera = camera;
-// Start rendering
+// Старт рендера
 Engine3D.startRenderView(view);
 ```

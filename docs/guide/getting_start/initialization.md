@@ -1,6 +1,6 @@
-# Initialization
-## Create Instances of Engine3D 
-Before using the engine, it must be initialized by the `Engine3D.init()` method, and the engine will automatically create an `Engine3D` instance for following operations
+# Инициализация
+## Создание экземпляра Engine3D 
+Перед использованием движка он должен быть инициализирован методом `Engine3D.init()`, и движок автоматически создаст экземпляр `Engine3d` для следующих операций
 ```ts
 import { Engine3D } from '@orillusion/core';
 
@@ -8,7 +8,7 @@ Engine3D.init().then(()=>{
   // for following operations
 })l
 ```
-Note that `Engine3D.init()` is an asynchronous API, it is recommended to be use with `async/await`
+Обратите внимание, что `Engine3D.init()` это асинхронное API, рекомендуется использовать с `async/await`
 
 ```ts
 import { Engine3D } from '@orillusion/core';
@@ -20,19 +20,19 @@ async function demo(){
 demo();
 ```
 
-## Create Canvas Manually
-By default, the `Engine3D.init()` instance automatically generates a `canvas` canvas with the screen size (width and height). If you do not want to use the canvas automatically created by the engine, you can also create the canvas manually.
-For example, the user can insert a `<canvas>` label into the HTML and specify an id:
+## Создайте холст вручную
+По умолчанию экземпляр `Engine3D.Init ()` автоматически генерирует `холст` с размером экрана (ширина и высота). Если вы не хотите использовать холст, автоматически созданный движком, вы также можете создать холст вручную.
+Например, пользователь может вставить метку `<canvas>` в HTML и задатm ей id:
 ```html
 <canvas id="canvas" width="800" height="500" />
 ```
 
-then using `document.getElementById`  in Typescript to get the canvas:
+затем использовать `document.getElementById`  в Typescript чтобы получить canvas:
 ```ts
 let canvas = document.getElementById('canvas');
 ```
 
-and using `canvasConfig` to pass paraments of `canvas` into `init()` method for initialization:
+и использовать `canvasConfig` для передачи параметров `canvas` в метод `init()` для инициализации:
 ```ts
 import { Engine3D } from '@orillusion/core';
 
@@ -42,4 +42,4 @@ await Engine3D.init({
 });
 ```
 
-Get more information of configuration from [Engine3D](/guide/core/engine)
+Получите больше информации о конфигурации от [Engine3D](/guide/core/engine)

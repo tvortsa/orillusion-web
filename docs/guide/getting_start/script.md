@@ -1,25 +1,25 @@
 ---
 aside: false
 ---
-# First Script
-The core of `Orillusion` is [component system](/guide/core/component), in addition to the basic components built into the engine, users can also write custom components to extend any functionality. In this section we will learn how to use custom components to add animation scripts to objects, such as adding a rotation animation to the cube created in the previous section. Let's take a look at the final result: we added a custom `RotateScript` component to the cube to make it rotate continuously around the `Y` axis.
+# Первый скрипт
+Ядром `Orillusion` является [component system](/guide/core/component), помимо основных компонентов, встроенных в движок, пользователи также могут писать пользовательские компоненты для расширения любых функциональностей. В этом разделе мы узнаем, как использовать пользовательские компоненты для добавления сценариев анимации в объекты, такие как добавление анимации вращения в куб, созданный в предыдущем разделе. Давайте посмотрим на конечный результат: Мы добавили пользовательский компонент `RotateScript` кубу чтобы сделать его вращение непрерывным по оси `Y`.
 
 <Demo :height="500" src="/demos/getting_start/script.ts"></Demo>
 
 <<< @/public/demos/getting_start/script.ts
 
-Users can extend functions from the `ComponentBase` class, and by using callbacks of [Life Cycle](/guide/core/component#life-cycle) to write your own logic. Set the behavior, state and orientation of the object for each frame by setting update callbacks of the script component.   
-In the example, we use a simple script component with `onUpdate` lifecycle, and write a script to add rotation animation to the object.
+Пользователи могут расширять функции из класса `ComponentBase`, и с помощью обратных вызовов [жизненного цикла](/guide/core/component#life-cycle) чтобы написать свою собственную логику. Установите поведение, состояние и ориентацию объекта для каждого кадра, установив обратные вызовы обновления компонента скрипта.   
+В примере мы используем простой компонент сценария с `onUpdate` lifecycle, и напишите сценарий, чтобы добавить анимацию ротации в объект.
 
 ```ts
 class RotateScript extends ComponentBase {
     public onUpdate() {
-        //update lifecycle, executed every frame in the main loop
+        // Обновление жизненного цикла, выполняемого каждым кадром в основном цикле
     }
 }
 ```
 
-We can get the current [object3D](/guide/core/object) of the component by `this.object3D`, and then change the state of the node. For example, in `update()` we increase `object3D.rotationY`, in order to rotate the object around the `Y` axis by `1` degree every frame.
+Мы можем получить текущий [object3D](/guide/core/object) компонента как `this.object3D`, а затем изменить состояние узла. Например, в `update()` мы увеличиваем `object3D.rotationY`, чтобы повернуть объект вокруг оси `Y` на `1` градус каждый кадр.
 
 ```ts
 public onUpdate() {
@@ -27,9 +27,9 @@ public onUpdate() {
 }
 ```
 
-After defining the component, we can use [addComponent](/api/classes/Object3D#addcomponent) to mount the component to the object.
+После определения компонента мы можем использовать [addComponent](/api/classes/Object3D#addcomponent) чтобы назначить компонент к объекту.
 
 ```ts
 obj.addComponent(RotateScript);
 ```
-The main loop of engine will run `onUpdate` callback automatically to complete the animation effect. For more usage of custom components, please refer to [Custom Components](/guide/core/component) page.
+Главный цикл движка будет запускать `onUpdate` callback автоматически для выполнения анимационного эффекта. Для получения дополнительного использования пользовательских компонентов, пожалуйста, обратитесь к странице [Custom Components](/guide/core/component).

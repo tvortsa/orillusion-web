@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Orillusion
-titleTemplate: Next Generation WebGPU Engine
+titleTemplate: Некст-ген WebGPU движок
 
 hero:
   name: Orillusion
@@ -9,28 +9,28 @@ hero:
     light: /en/images/logo_black.png
     dark: /en/images/logo_white.png
   text: Next Generation WebGPU Engine
-  tagline: Simple but powerful for Web3D developers
+  tagline: Простой но мощный для Web3D разработчиков
   actions:
     - theme: brand
-      text: Get Started
+      text: Начало
       link: /guide/
     - theme: alt
-      text: Example
+      text: Примеры
       link: /example/base/AddRemove
     - theme: alt
       text: GitHub
       link: https://github.com/Orillusion/orillusion
 
 features:
-  - title: Approachable
-    details: A refreshingly simple data-driven 3D engine built in JavaScript. Free and Open Source Forever!
-  - title: Versatile
-    details: An incrementally extensible ECS framework that scales between a library and a full-featured product.
-  - title: Performant
+  - title: Доступный
+    details: Освежающе простой 3D-движок, управляемый данными, встроенный в JavaScript. Бесплатный и открытый исходный код навсегда!
+  - title: Универсальный
+    details: Постепенно расширяемая структура ECS, которая масштабируется между библиотекой и полнофункциональным продуктом.
+  - title: Производительный
     details: 
-      Pure Web Cross-Platform Runtime.<br>
-      Blazing Fast WebGPU Renderer.<br>
-      Minimal Optimization Efforts.
+      Чистый веб-кроссплатформенный рантайм.<br>
+      Быстрый WebGPU рендер.<br>
+      Минимальные усилия по оптимизации.
 
 ---
 

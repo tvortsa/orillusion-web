@@ -1,27 +1,27 @@
 # Installation
 
-## Install by NPM
-We recommend using frontend build tools based on `Node.js` to develop `Web3D` applications. For example, you can use frontend frameworks such as [Vite](https://vitejs.dev/) or [Webpack](https://webpack.js.org/) to build complex frontend projects. You can also use [TypeScript](https://www.typescriptlang.org/) for more convenient development.
+## Через NPM
+Мы рекомендуем использовать инструменты сборки фронта на основе `Node.js` для разработки `Web3D` приложений. Например, вы можете использовать frontend фрэймворки, такие как [Vite](https://vitejs.dev/) или [Webpack](https://webpack.js.org/) чтобы создать сложные фронтэнд проекты. Вы также можете использовать [TypeScript](https://www.typescriptlang.org/) Для более удобной разработки.
 
-1. Installing dependencies
-Use the npm command in the command prompt to install engine dependencies:
+1. Установка зависимостей
+Используйте команду npm в командной строке для установки зависимостей движка:
 ```bash
 npm install @orillusion/core --save
 ```
-2. Import modules
+2. Импорт модулtq
 
-Import certain modules:
+Импортируйте определенные модули:
 ```ts
 import { Engine3D, Camera3D } from '@orillusion/core'
 ```
-Or you can import the entire module:
+Или вы можете импортировать весь модуль:
 ```ts
 import * as Orillusion from '@orillusion/core'
 ```
 
-> Note: The `Orillusion` engine requires a browser that supports the latest `WebGPU` standard, such as `Chrome >= 114`. Therefore, there is no need to maintain compatibility with older `JavaScript` syntax. The default production release is targetting `ESNext` syntax. If you are using build tools like [Vite](https://vitejs.dev/) or [Webpack](https://webpack.js.org/) to deploy your project, it is recommended to set the build target to `ES2021` or later to ensure all APIs operate in their optimal state.
+> Note: `Orillusion` движок требует браузера, который поддерживает последний `WebGPU` стандарт, такой как `Chrome >= 114`. Следовательно, нет необходимости поддерживать совместимость со старым синтаксисом `JavaScript`. Релиз продакшн по умолчанию нацелен на синтаксис `ESNext`. Если вы используете инструменты сборки, такие как [Vite](https://vitejs.dev/) или [Webpack](https://webpack.js.org/) Чтобы развернуть ваш проект, рекомендуется установить цель сборки на `ES2021` или поздний, чтобы гарантировать, что все API работают в их оптимальном состоянии.
 
-## Import Via `CDN` Links
+## Импорт через ссылки `CDN`
 We support quick access to the `orillusion` engine directly through a `CDN` link with the `<script>` tag. Here is an example of using `@orillusion/core` link.
 > Users can use third-party `NPM` distribution services to load various versions of `orillusion` files, such as [unpkg](https://unpkg.com/@orillusion/core) or [jsdelivr](https://www.jsdelivr.com/package/npm/@orillusion/core). For local development, users can download the corresponding version of `js` file.
 
