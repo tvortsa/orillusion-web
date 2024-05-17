@@ -120,7 +120,7 @@ engine setting
 
 • `get` **frameRate**(): `number`
 
-set engine render frameRate 24/30/60/114/120/144/240/360 fps or other
+get engine render frameRate
 
 #### Returns
 
@@ -132,7 +132,7 @@ set engine render frameRate 24/30/60/114/120/144/240/360 fps or other
 
 • `set` **frameRate**(`value`): `void`
 
-get engine render frameRate
+set engine render frameRate 24/30/60/114/120/144/240/360 fps or other
 
 #### Parameters
 
